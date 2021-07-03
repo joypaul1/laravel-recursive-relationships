@@ -16,7 +16,7 @@ trait HasRecursiveRelationships
 
     public function children()
     {
-        return $this->/* @scrutinizer ignore-call */ hasMany(self::class, $this->getParentKeyName());
+        return $this->hasMany(self::class, $this->getParentKeyName());
     }
 
     public function nestedChildren()
@@ -26,17 +26,17 @@ trait HasRecursiveRelationships
 
     public function parent()
     {
-        return $this->/* @scrutinizer ignore-call */ belongsTo(self::class, $this->getParentKeyName());
+        return $this-> belongsTo(self::class, $this->getParentKeyName());
     }
 
     public function nestedParents()
     {
-        return $this->/* @scrutinizer ignore-call */ belongsTo(self::class, $this->getParentKeyName())->with('nestedParents');
+        return $this->belongsTo(self::class, $this->getParentKeyName())->with('nestedParents');
     }
 
     public function scopeHasChildren(Builder $query)
     {
-        $keys = (new self())->/* @scrutinizer ignore-call */ newQuery()
+        $keys = (new self())->newQuery()
             ->select($this->getParentKeyName())
             ->hasParent();
 
@@ -50,7 +50,7 @@ trait HasRecursiveRelationships
 
     public function scopeLeaf(Builder $query)
     {
-        $keys = (new self())->/* @scrutinizer ignore-call */ newQuery()
+        $keys = (new self())->newQuery()
             ->select($this->getParentKeyName())
             ->hasParent();
 
